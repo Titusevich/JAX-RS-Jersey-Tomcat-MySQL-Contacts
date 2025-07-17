@@ -1,0 +1,203 @@
+@startuml
+class org.example.app.dto.ContactDtoByIdResponse {
+- int statusCode
+- String reasonPhrase
+- boolean success
+- String message
+- Contact contact
++ {static} String SUCCESS_MESSAGE
++ {static} String FAILURE_MESSAGE
++ {static} ContactDtoByIdResponse of(Long,boolean,Contact)
++ boolean success()
++ String message()
++ Contact contact()
++ int statusCode()
++ String reasonPhrase()
+}
+
+
+class org.example.app.dto.ContactDtoListResponse {
+- int statusCode
+- String reasonPhrase
+- boolean success
+- String message
+- List<Contact> contactList
++ {static} String SUCCESS_MESSAGE
++ {static} String FAILURE_MESSAGE
++ {static} ContactDtoListResponse of(boolean,List<Contact>)
++ boolean success()
++ String message()
++ List<Contact> contactList()
++ int statusCode()
++ String reasonPhrase()
+}
+
+
+class org.example.app.entity.Contact {
+- Long id
+- String firstName
+- String lastName
+- String phoneNumber
++ Long getId()
++ void setId(Long)
++ String getFirstName()
++ void setFirstName(String)
++ String getLastName()
++ void setLastName(String)
++ String getPhoneNumber()
++ void setPhoneNumber(String)
++ boolean equals(Object)
++ int hashCode()
++ String toString()
+}
+
+
+interface org.example.app.service.BaseService {
+~ T create(S)
+~ List<T> getAll()
+~ T getById(Long)
+~ T update(Long,S)
+~ boolean deleteById(Long)
+}
+
+interface org.example.app.service.contact.ContactService {
+~ Contact create(ContactDtoRequest)
+~ List<Contact> getAll()
+~ Contact getById(Long)
+~ Contact update(Long,ContactDtoRequest)
+~ boolean deleteById(Long)
+}
+
+class org.example.app.dto.ContactDtoRequest {
+- Long id
+- String firstName
+- String lastName
+- String phoneNumber
++ String lastName()
++ String phoneNumber()
++ String firstName()
++ Long id()
+}
+
+
+class org.example.app.dto.ContactDtoCreateResponse {
+- int statusCode
+- String reasonPhrase
+- boolean success
+- String message
+- Contact contact
++ {static} String SUCCESS_MESSAGE
++ {static} String FAILURE_MESSAGE
++ {static} ContactDtoCreateResponse of(boolean,Contact)
++ boolean success()
++ String message()
++ Contact contact()
++ int statusCode()
++ String reasonPhrase()
+}
+
+
+class org.example.app.config.AppResourceConfig {
+}
+interface org.example.app.repository.BaseRepository {
+~ void save(S)
+~ Optional<List<T>> getAll()
+~ Optional<T> getById(Long)
+~ void update(Long,S)
+~ boolean deleteById(Long)
+}
+
+class org.example.app.controller.ContactController {
+- ContactService service
++ Response create(ContactDtoRequest)
++ Response getAll()
++ Response getById(Long)
++ Response update(Long,ContactDtoRequest)
++ Response deleteById(Long)
+}
+
+
+class org.example.app.dto.ContactDtoDeleteResponse {
+- int statusCode
+- String reasonPhrase
+- boolean success
+- String message
++ {static} String SUCCESS_MESSAGE
++ {static} String FAILURE_MESSAGE
++ {static} ContactDtoDeleteResponse of(Long,boolean)
++ boolean success()
++ String message()
++ int statusCode()
++ String reasonPhrase()
+}
+
+
+class org.example.app.service.contact.ContactServiceImpl {
+- ContactRepository repository
++ Contact create(ContactDtoRequest)
++ List<Contact> getAll()
++ Contact getById(Long)
++ Contact update(Long,ContactDtoRequest)
++ boolean deleteById(Long)
+}
+
+
+class org.example.app.dto.ContactDtoUpdateResponse {
+- int statusCode
+- String reasonPhrase
+- boolean success
+- String message
+- Contact contact
++ {static} String SUCCESS_MESSAGE
++ {static} String FAILURE_MESSAGE
++ {static} ContactDtoUpdateResponse of(Long,boolean,Contact)
++ boolean success()
++ String message()
++ Contact contact()
++ int statusCode()
++ String reasonPhrase()
+}
+
+
+class org.example.app.config.HibernateUtil {
+- {static} Logger LOGGER
+- {static} SessionFactory sessionFactory
++ {static} SessionFactory getSessionFactory()
+}
+
+
+class org.example.app.repository.contact.ContactRepositoryImpl {
+- {static} Logger LOGGER
++ void save(ContactDtoRequest)
++ Optional<List<Contact>> getAll()
++ Optional<Contact> getById(Long)
++ void update(Long,ContactDtoRequest)
++ boolean deleteById(Long)
++ boolean isIdExists(Long)
++ Optional<Contact> getLastEntity()
+}
+
+
+class org.example.app.config.ApplicationBinder {
++ boolean configure(FeatureContext)
+}
+
+interface org.example.app.repository.contact.ContactRepository {
+~ void save(ContactDtoRequest)
+~ Optional<List<Contact>> getAll()
+~ Optional<Contact> getById(Long)
+~ void update(Long,ContactDtoRequest)
+~ boolean deleteById(Long)
+~ boolean isIdExists(Long)
+~ Optional<Contact> getLastEntity()
+}
+
+
+
+org.example.app.service.BaseService <|-- org.example.app.service.contact.ContactService
+org.glassfish.jersey.server.ResourceConfig <|-- org.example.app.config.AppResourceConfig
+org.example.app.service.contact.ContactService <|.. org.example.app.service.contact.ContactServiceImpl
+org.example.app.repository.contact.ContactRepository <|.. org.example.app.repository.contact.ContactRepositoryImpl
+jakarta.ws.rs.core.Feature <|.. org.example.app.config.ApplicationBinder
+org.example.app.repository.BaseRepository <|-- org.example.app.repository.contact.ContactRepository
+@enduml

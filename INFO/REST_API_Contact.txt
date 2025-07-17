@@ -1,0 +1,91 @@
+REST API Contact
+---------------------
+
+Postman для тесту REST API
+https://www.postman.com/
+
+Для здійснення кожного запиту, натискаємо Send .
+Якщо REST-запит має тіло, необхідно налаштування
+в Postman: Body > raw > JSON.
+
+
+(1) Створення даних
+
+POST
+http://localhost:8080/JAX-RS-Jersey-Tomcat-Contacts-1.0-SNAPSHOT/api/v1/contacts
+
+Виконуємо окремі запити
+
+{
+    "firstName": "Robert",
+    "lastName": "Downey Jr",
+    "phoneNumber": "1111-11-11"
+}
+
+{
+    "firstName": "Chris",
+    "lastName": "Evans",
+    "phoneNumber": "2222-22-22"
+}
+
+{
+    "firstName": "Scarlett",
+    "lastName": "Johansson",
+    "phoneNumber": "3333-33-33"
+}
+
+{
+    "firstName": "Chris",
+    "lastName": "Hemsworth",
+    "phoneNumber": "4444-44-44"
+}
+
+{
+    "firstName": "Mark",
+    "lastName": "Ruffalo",
+    "phoneNumber": "5555-55-55"
+}
+
+Перевіремо через MySQL Workbench.
+
+
+(2) Отримання всіх даних
+
+GET
+http://localhost:8080/Your-Project-Name-1.0-SNAPSHOT/api/v1/contacts
+
+
+(3) Отримання даних за id
+
+GET
+http://localhost:8080/Your-Project-Name-1.0-SNAPSHOT/api/v1/contacts/3
+
+Також, за неіснуючим id
+
+GET
+http://localhost:8080/Your-Project-Name-1.0-SNAPSHOT/api/v1/contacts/9
+
+
+(4) Оновлення даних за id
+
+PUT
+http://localhost:8080/Your-Project-Name-1.0-SNAPSHOT/api/v1/contacts/3
+
+{
+    "firstName": "Florence",
+    "lastName": "Pugh",
+    "phoneNumber": "33-3-333"
+}
+
+Перевіремо через MySQL Workbench та REST-запит за відповідним id.
+Також, спробуємо оновити за неіснуючим id.
+
+
+(5) Видалення даних за id
+
+DELETE
+http://localhost:8080/Your-Project-Name-1.0-SNAPSHOT/api/v1/contacts/4
+
+Перевіремо через MySQL Workbench, REST-запити отримання всіх даних
+та за відповідним id.
+Також, спробуємо повторно видалити та тим самим id, та за неіснуючим id.
