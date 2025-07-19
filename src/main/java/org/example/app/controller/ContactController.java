@@ -21,7 +21,7 @@ public class ContactController {
 
 //    Creating new contact
     @POST
-    @Consumes
+    @Consumes(MediaType.APPLICATION_JSON)
     public Response create(final ContactDtoRequest request) {
         Contact contact = service.create(request);
         if (contact != null)
